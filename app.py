@@ -1,4 +1,7 @@
 # web app: to building a sever
+# Fcn of 
+## heroku: can execute your web app code
+## Github: only for code storage that can arrange version
 
 from flask import Flask, request, abort # flask(for small project) /django(for large project with an image, like web) can be for python sever or build a website
 
