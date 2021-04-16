@@ -17,10 +17,12 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('2ZDlI+M1yYBZ7QhO5UqCIbeguyBViVzWelIm7aDY6+c/Dmxd3etQxmVLesRClSVBkcuGfSFFPMM9+wW9if4LI2jUMS711xR2fCwEht8kHK/69i9tglsrS/1lKJ2JQKWeXK6tFPPgqDVLPEWuQTlFagdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('cd6b252f9b8191ba35122e976024f118')
 # YOUR_CHANNEL_ACCESS_TOKEN權杖/利
+line_bot_api = LineBotApi('2ZDlI+M1yYBZ7QhO5UqCIbeguyBViVzWelIm7aDY6+c/Dmxd3etQxmVLesRClSVBkcuGfSFFPMM9+wW9if4LI2jUMS711xR2fCwEht8kHK/69i9tglsrS/1lKJ2JQKWeXK6tFPPgqDVLPEWuQTlFagdB04t89/1O/w1cDnyilFU=')
 # YOUR_CHANNEL_SECRET 
+handler = WebhookHandler('cd6b252f9b8191ba35122e976024f118')
+
+
 
 # The following is the code for receving the msg from line
 # if user input www.line-bot.com/callback
@@ -47,9 +49,20 @@ def callback():
 # the above will trigger the following to reply the msg from line
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    msg = event.message.text
+    r = 'do not understand'
+    if msg in ['hi', 'Hi']:
+        r = 'u good?'
+    elif msg == 'eat':
+        r = 'yes'
+    elif msg == 'who':
+        r = 'robot'
+    elif 'reserve' in msg:
+        r = 'want to reserve?'
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text)) # event.message.text is the user msg
+        TextSendMessage(text=r)) # replied event.message.text is same to the user msg
 
 
 if __name__ == "__main__":
