@@ -51,6 +51,18 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     r = 'do not understand'
+    
+    if 'sticker' in msg:
+        sticker_message = StickerSendMessage(
+            package_id='1',
+            sticker_id='1'
+        )
+        line_bot_api.reply_message(
+        event.reply_token, 
+        sticker_message)
+
+        return    
+
     if msg in ['hi', 'Hi']:
         r = 'u good?'
     elif msg == 'eat':
@@ -59,18 +71,12 @@ def handle_message(event):
         r = 'robot'
     elif 'reserve' in msg:
         r = 'want to reserve?'
-
+    
     line_bot_api.reply_message(
         event.reply_token, 
-       StickerSendMessage(
-            package_id='1',
-            sticker_id='1'
-    )) # replied event.message.text is same to the user msg
-# TextSendMessage(text=r)
-# sticker_message = StickerSendMessage(
-#     package_id='1',
-#     sticker_id='1'
-# )
+        TextSendMessage(text=r)) # replied event.message.text is same to the user msg
+
+
 
 if __name__ == "__main__":
     app.run()
